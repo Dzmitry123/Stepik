@@ -1,13 +1,33 @@
 inputs = [];
-// inputs.push({input : [ '12', 'add 911 police', 'add 76213 Mom', 'add 17239 Bob', 'find 76213', 'find 910', 'find 911',
-//         'del 910', 'del 911', 'find 911', 'find 76213', 'add 76213 daddy', 'find 76213' ],
-// output : ['Mom', 'not found', 'police', 'not found', 'Mom', 'daddy'] });
-inputs.push({input : [ '8', 'find 3839442', 'add 123456 me', 'add 0 granny', 'find 0', 'find 123456', 'del 0', 'del 0',
-       'find 0' ],
-output : ['not found', 'granny', 'me', 'not found'] });
-
-
-
+inputs.push({input : [ '5', '12', 'add world', 'add HellO', 'check 4', 'find World', 'find world', 'del world', 'check 4',
+    'del HellO', 'add luck', 'add GooD', 'check 2', 'del good' ],
+output : [ 'HellO world', 'no', 'yes', 'HellO', 'GooD luck' ] });
+inputs.push({input : [ '4', '8', 'add test', 'add test', 'find test', 'del test', 'find test', 'find Test', 'add Test',
+        'find Test' ],
+output : [ 'yes', 'no', 'no', 'yes' ] });
+inputs.push({input : [ '3', '12', 'check 0', 'find help', 'add help', '', 'find Test', 'add Test',
+        'find Test' ],
+    output : [  ] });
+3
+12
+check 0
+find help
+add help
+add del
+add add
+find add
+find del
+del del
+find del
+check 0
+check 1
+check 2
+Выход:
+    no
+yes
+yes
+no
+add help
 
 function myAlgorithm(input) {
     const params = input[0].toString().split(' ');
