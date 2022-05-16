@@ -1,78 +1,65 @@
 let tests = [];
-tests.push({input: '()({{}}[])\n', output: 'Success'});
-tests.push({input: '{[]}()', output: 'Success'});
-tests.push({input: '()[]', output: 'Success'});
-tests.push({input: '([])', output: 'Success'});
-tests.push({input: 'foo(bar)', output: 'Success'});
-tests.push({input: '{[}', output: '3'});
-tests.push({input: '{', output: '1'});
-tests.push({input: '[]([]', output: '3'});
+// tests.push({input: '()({{}}[])\n', output: 'Success'});
+// tests.push({input: '{[]}()', output: 'Success'});
+// tests.push({input: '()[]', output: 'Success'});
+// tests.push({input: '([])', output: 'Success'});
+// tests.push({input: 'foo(bar)', output: 'Success'});
+// tests.push({input: '{[}', output: '3'});
+// tests.push({input: '{', output: '1'});
+// tests.push({input: '[]([]', output: '3'});
 tests.push({input: 'foo(bar[i);', output: '10'});
-tests.push({input: '{{{**[][][]', output: '3'});
-tests.push({input: '{{{[][][]', output: '3'});
+// tests.push({input: '{{{**[][][]', output: '3'});
+// tests.push({input: '{{{[][][]', output: '3'});
+debugger
+function myAlgorithm(input) {
+    let arr;
+    if(Array.isArray(input)){
+        arr=input;
+    }else arr=input.split('');
+    const Braket=['(','[','{',')',']','}'];
+    let openBraket=['(','[','{'];
+    let pairBraket={
+        [')']:'(',
+        [']']:'[',
+        ['}']:'{',
+    };
+    console.log('1', arr);
+    let stack=[];
+    let count=0;
 
+    for(let i=0; i<arr.length; i++){
+        if(Braket.includes(arr[i])){
 
-runTests(tests);
-
-//runSpecificTest(tests[7]);
-
-
-function runTests(tests) {
-    for (let i = 0; i < tests.length; i++) {
-        let res = isBalanced(tests[i].input);
-        if (!res) {
-            res = "Success";
-        }
-        if (res != tests[i].output) {
-            console.log(`mistake on ${i + 1} test `);
-        }
-        console.log(res);
-    }
-}
-
-function runSpecificTest(test) {
-    let res = isBalanced(test.input);
-    if (!res) {
-        res = "Success";
-    }
-    if (res != test.output) {
-        console.log(`mistake`);
-    }
-    console.log(res);
-}
-
-
-function isBalanced(str) {
-    debugger
-    let arr = [];
-    let stek = [];
-    arr = str.split('');
-    for (let i = 0; i < arr.length; i++) {
-
-        if (arr[i] == '(' || arr[i] == '[' || arr[i] == '{') {
-            stek.push({
-                symbol: arr[i],
-                index: i
-            });
-
-        } else {
-            if (!(arr[i] == ')' || arr[i] == ']' || arr[i] == '}')) {
-                continue;
+            if(openBraket.includes(arr[i])){
+                stack.push(arr[i]);
+                stack.push(i);
+                console.log('1',stack);
+            } else{
+                if(stack.length===0) return 0 ;
             }
-            if (stek.length == 0) {
-                return i + 1;
-            }
-            let top = stek.pop().symbol;
 
-            if (!(arr[i] == ')' && top == '(' ||
-                arr[i] == ']' && top == '[' ||
-                arr[i] == '}' && top == '{')) {
-                return i + 1;
+            let top=stack[stack.length-2];
+
+            if(pairBraket[arr[i]]===top){
+                stack.pop();
+                stack.pop();
+                console.log('2',stack);
+            }else {
+                count=i;
             }
+
+            if(stack.length!==0) return stack[stack.length-1]+1;
+            console.log('3',stack);
         }
     }
-    if (stek.length != 0) {
-        return stek.pop().index + 1;
-    }
+    return (stack.length===0)? 'Success': count+1;
 }
+console.log(myAlgorithm('foo(bar[i)'));
+
+for (let i = 0; i < inputs.length; i++) {
+    console.log('test number ' + i);
+    myAlgorithm(inputs[i].input);
+    console.log('\n');
+}
+
 
